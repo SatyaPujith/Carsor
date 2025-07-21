@@ -257,31 +257,28 @@ const ChartLegendContent = React.forwardRef<
           className
         )}
       >
-        {payload.map((item) => {
-          const key = `${nameKey || item.dataKey || 'value'}`;
-          const itemConfig = getPayloadConfigFromPayload(config, item, key);
+        {(payload as Array<Payload & { dataKey?: string }>).map((item, index) => {
+  const key = nameKey ?? item.dataKey ?? 'value';
+  const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
-          return (
-            <div
-              key={item.value}
-              className={cn(
-                'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground'
-              )}
-            >
-              {itemConfig?.icon && !hideIcon ? (
-                <itemConfig.icon />
-              ) : (
-                <div
-                  className="h-2 w-2 shrink-0 rounded-[2px]"
-                  style={{
-                    backgroundColor: item.color,
-                  }}
-                />
-              )}
-              {itemConfig?.label}
-            </div>
-          );
-        })}
+  return (
+    <div key={index} className="flex items-center gap-2">
+      {itemConfig.color && (
+        <span
+          className="h-2 w-2 rounded-full"
+          style={{ backgroundColor: itemConfig.color }}
+        />
+      )}
+      {!hideLabel && (
+        <span className="text-sm font-medium text-muted-foreground">
+          {itemConfig.label ?? key}
+        </span>
+      )}
+      {!hideLabel && !hideValue && <span className="text-sm">{item.value}</span>}
+    </div>
+  );
+})}
+
       </div>
     );
   }
