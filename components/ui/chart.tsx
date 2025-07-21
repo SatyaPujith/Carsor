@@ -85,10 +85,10 @@ ${colorConfig
       itemConfig.color;
     return color ? `  --color-${key}: ${color};` : null;
   })
-  .join('\n')}
+  .join('\\n')}
 }
 `)
-          .join('\n'),
+          .join('\\n'),
       }}
     />
   );
@@ -98,7 +98,7 @@ const ChartTooltip = RechartsTooltip;
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  TooltipProps & React.ComponentProps<'div'> & {
+  TooltipProps<any, any> & React.ComponentProps<'div'> & {
     hideLabel?: boolean;
     hideIndicator?: boolean;
     indicator?: 'line' | 'dot' | 'dashed';
@@ -196,12 +196,10 @@ const ChartTooltipContent = React.forwardRef<
                               'my-0.5': nestLabel && indicator === 'dashed',
                             }
                           )}
-                          style={
-                            {
-                              '--color-bg': indicatorColor,
-                              '--color-border': indicatorColor,
-                            } as React.CSSProperties
-                          }
+                          style={{
+                            '--color-bg': indicatorColor,
+                            '--color-border': indicatorColor,
+                          } as React.CSSProperties}
                         />
                       )
                     )}
