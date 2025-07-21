@@ -1,23 +1,48 @@
 'use client';
 
+import {
+  Car,
+  Users,
+  Clock,
+  Wrench,
+  TrendingUp,
+  AlertTriangle
+} from 'lucide-react';
+
 import { useState, useEffect } from 'react';
+import type { ComponentType } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  PieChart, Pie, Cell, LineChart, Line
+  ResponsiveContainer as RC,
+  BarChart as BC,
+  PieChart as PC,
+  LineChart as LC,
+  XAxis as X,
+  YAxis as Y,
+  CartesianGrid as CG,
+  Tooltip as TT,
+  Bar as B,
+  Pie as P,
+  Cell as C,
+  Line as L
 } from 'recharts';
-import { ResponsiveContainer as RC } from 'recharts';
 
-// ✅ Fix ResponsiveContainer JSX typing
-const ResponsiveContainer = RC as unknown as React.FC<{
-  children: React.ReactNode;
-  width: string | number;
-  height: number;
-}>;
+// Cast to bypass JSX incompatibility
+const ResponsiveContainer = RC as unknown as ComponentType<any>;
+const BarChart = BC as unknown as ComponentType<any>;
+const PieChart = PC as unknown as ComponentType<any>;
+const LineChart = LC as unknown as ComponentType<any>;
+const XAxis = X as unknown as ComponentType<any>;
+const YAxis = Y as unknown as ComponentType<any>;
+const CartesianGrid = CG as unknown as ComponentType<any>;
+const Tooltip = TT as unknown as ComponentType<any>;
+const Bar = B as unknown as ComponentType<any>;
+const Pie = P as unknown as ComponentType<any>;
+const Cell = C as unknown as ComponentType<any>;
+const Line = L as unknown as ComponentType<any>;
 
-import { TrendingUp, AlertTriangle, Wrench, Car, Users, Clock } from 'lucide-react';
 
 interface Issue {
   _id: string;
@@ -68,6 +93,10 @@ interface AnalyticsData {
     percentage: number;
   }>;
 }
+
+
+
+
 
 export default function AnalyticsDashboard() {
   const [data, setData] = useState<AnalyticsData | null>(null);
@@ -300,11 +329,11 @@ export default function AnalyticsDashboard() {
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
         <Card>
-          <CardContent className="p-3 sm:p-4">
+          <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <Car className="w-6 h-6 text-blue-600" />
               <div>
-                <p className="text-lg sm:text-xl font-bold">{data.overview.totalIssues}</p>
+                <p className="text-xl font-bold">{data.overview.totalIssues}</p>
                 <p className="text-xs text-gray-600">Total Issues</p>
               </div>
             </div>
@@ -312,11 +341,11 @@ export default function AnalyticsDashboard() {
         </Card>
         
         <Card>
-          <CardContent className="p-3 sm:p-4">
+          <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <Wrench className="w-6 h-6 text-green-600" />
               <div>
-                <p className="text-lg sm:text-xl font-bold">{data.overview.resolvedIssues}</p>
+                <p className="text-xl font-bold">{data.overview.resolvedIssues}</p>
                 <p className="text-xs text-gray-600">Resolved</p>
               </div>
             </div>
@@ -324,11 +353,11 @@ export default function AnalyticsDashboard() {
         </Card>
         
         <Card>
-          <CardContent className="p-3 sm:p-4">
+          <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <TrendingUp className="w-6 h-6 text-orange-600" />
               <div>
-                <p className="text-lg sm:text-xl font-bold">{data.overview.activeIssues}</p>
+                <p className="text-xl font-bold">{data.overview.activeIssues}</p>
                 <p className="text-xs text-gray-600">Active</p>
               </div>
             </div>
@@ -336,11 +365,11 @@ export default function AnalyticsDashboard() {
         </Card>
         
         <Card>
-          <CardContent className="p-3 sm:p-4">
+          <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-6 h-6 text-red-600" />
               <div>
-                <p className="text-lg sm:text-xl font-bold">{data.overview.criticalIssues}</p>
+                <p className="text-xl font-bold">{data.overview.criticalIssues}</p>
                 <p className="text-xs text-gray-600">Critical</p>
               </div>
             </div>
@@ -348,11 +377,11 @@ export default function AnalyticsDashboard() {
         </Card>
 
         <Card>
-          <CardContent className="p-3 sm:p-4">
+          <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <Users className="w-6 h-6 text-purple-600" />
               <div>
-                <p className="text-lg sm:text-xl font-bold">{data.overview.totalUsers}</p>
+                <p className="text-xl font-bold">{data.overview.totalUsers}</p>
                 <p className="text-xs text-gray-600">Users</p>
               </div>
             </div>
@@ -360,11 +389,11 @@ export default function AnalyticsDashboard() {
         </Card>
 
         <Card>
-          <CardContent className="p-3 sm:p-4">
+          <CardContent className="p-4">
             <div className="flex items-center gap-2">
               <Clock className="w-6 h-6 text-indigo-600" />
               <div>
-                <p className="text-lg sm:text-xl font-bold">{data.overview.avgResolutionTime}d</p>
+                <p className="text-xl font-bold">{data.overview.avgResolutionTime}d</p>
                 <p className="text-xs text-gray-600">Avg Resolution</p>
               </div>
             </div>
@@ -469,37 +498,34 @@ export default function AnalyticsDashboard() {
           <Card>
             <CardHeader>
               <CardTitle>Manufacturing Insights & Common Flaws</CardTitle>
-              <p className="text-xs sm:text-sm text-gray-600">Critical insights for future vehicle design and manufacturing improvements</p>
+              <p className="text-sm text-gray-600">Critical insights for future vehicle design and manufacturing improvements</p>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2 sm:space-y-4">
+              <div className="space-y-4">
                 {data.commonFlaws.length > 0 ? (
                   data.commonFlaws.map((flaw, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 border rounded-lg bg-gray-50 space-y-2 sm:space-y-0">
+                    <div key={index} className="flex items-center justify-between p-4 border rounded-lg bg-gray-50">
                       <div className="flex-1">
-                        <h4 className="font-medium text-sm sm:text-base break-words">{flaw.issue}</h4>
-                        <p className="text-xs sm:text-sm text-gray-600 break-words">
+                        <h4 className="font-medium">{flaw.issue}</h4>
+                        <p className="text-sm text-gray-600">
                           Reported {flaw.frequency} times across {flaw.affectedModels.join(', ')}
                         </p>
                         <div className="mt-2">
-                          <div className="flex flex-wrap gap-1">
-                            <span className="text-xs text-gray-500">Models: </span>
-                            {flaw.affectedModels.map((model, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">
-                                {model}
-                              </Badge>
-                            ))}
-                          </div>
+                          <span className="text-xs text-gray-500">Affected Models: </span>
+                          {flaw.affectedModels.map((model, idx) => (
+                            <Badge key={idx} variant="outline" className="mr-1 text-xs">
+                              {model}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
-                      <div className="text-left sm:text-right flex-shrink-0">
+                      <div className="text-right">
                         <Badge 
                           variant={flaw.severity === 'high' ? 'destructive' : flaw.severity === 'medium' ? 'default' : 'secondary'}
-                          className="text-xs"
                         >
                           {flaw.severity} priority
                         </Badge>
-                        <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-gray-500 mt-1">
                           Manufacturing Impact
                         </p>
                       </div>
@@ -517,23 +543,23 @@ export default function AnalyticsDashboard() {
           <Card>
             <CardHeader>
               <CardTitle>Issue Severity Distribution</CardTitle>
-              <p className="text-xs sm:text-sm text-gray-600">Understanding the criticality of reported issues</p>
+              <p className="text-sm text-gray-600">Understanding the criticality of reported issues</p>
             </CardHeader>
             <CardContent>
               {data.severityDistribution.length > 0 ? (
-                <div className="space-y-2 sm:space-y-4">
+                <div className="space-y-4">
                   {data.severityDistribution.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 sm:p-3 border rounded">
+                    <div key={index} className="flex items-center justify-between p-3 border rounded">
                       <div className="flex items-center gap-3">
                         <div className={`w-4 h-4 rounded-full ${
                           item.severity === 'High' ? 'bg-red-500' : 
                           item.severity === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'
                         }`}></div>
-                        <span className="font-medium text-sm sm:text-base">{item.severity} Severity</span>
+                        <span className="font-medium">{item.severity} Severity</span>
                       </div>
                       <div className="text-right">
-                        <span className="text-base sm:text-lg font-bold">{item.count}</span>
-                        <span className="text-xs sm:text-sm text-gray-500 ml-1 sm:ml-2">({item.percentage}%)</span>
+                        <span className="text-lg font-bold">{item.count}</span>
+                        <span className="text-sm text-gray-500 ml-2">({item.percentage}%)</span>
                       </div>
                     </div>
                   ))}
