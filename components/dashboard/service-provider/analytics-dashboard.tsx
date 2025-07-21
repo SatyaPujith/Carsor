@@ -4,7 +4,19 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  PieChart, Pie, Cell, LineChart, Line
+} from 'recharts';
+import { ResponsiveContainer as RC } from 'recharts';
+
+// ✅ Fix ResponsiveContainer JSX typing
+const ResponsiveContainer = RC as unknown as React.FC<{
+  children: React.ReactNode;
+  width: string | number;
+  height: number;
+}>;
+
 import { TrendingUp, AlertTriangle, Wrench, Car, Users, Clock } from 'lucide-react';
 
 interface Issue {
