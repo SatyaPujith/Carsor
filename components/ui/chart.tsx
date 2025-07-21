@@ -1,6 +1,8 @@
 'use client';
 
 import * as React from 'react';
+import type { Payload } from 'recharts';
+
 import {
   ResponsiveContainer,
   Tooltip as RechartsTooltip,
