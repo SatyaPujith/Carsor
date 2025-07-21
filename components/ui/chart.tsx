@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import type { Payload } from 'recharts';
+import type { Payload } from 'recharts/types';
 
 import {
   ResponsiveContainer,
@@ -87,10 +87,10 @@ ${colorConfig
       itemConfig.color;
     return color ? `  --color-${key}: ${color};` : null;
   })
-  .join('\\n')}
+  .join('\n')}
 }
 `)
-          .join('\\n'),
+          .join('\n'),
       }}
     />
   );
@@ -260,27 +260,23 @@ const ChartLegendContent = React.forwardRef<
         )}
       >
         {(payload as Array<Payload & { dataKey?: string }>).map((item, index) => {
-  const key = nameKey ?? item.dataKey ?? 'value';
-  const itemConfig = getPayloadConfigFromPayload(config, item, key);
+          const key = nameKey ?? item.dataKey ?? 'value';
+          const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
-  return (
-    <div key={index} className="flex items-center gap-2">
-      {itemConfig.color && (
-        <span
-          className="h-2 w-2 rounded-full"
-          style={{ backgroundColor: itemConfig.color }}
-        />
-      )}
-      {!hideLabel && (
-        <span className="text-sm font-medium text-muted-foreground">
-          {itemConfig.label ?? key}
-        </span>
-      )}
-      {!hideLabel && !hideValue && <span className="text-sm">{item.value}</span>}
-    </div>
-  );
-})}
-
+          return (
+            <div key={index} className="flex items-center gap-2">
+              {itemConfig?.color && !hideIcon && (
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ backgroundColor: itemConfig.color }}
+                />
+              )}
+              <span className="text-sm font-medium text-muted-foreground">
+                {itemConfig?.label ?? key}
+              </span>
+            </div>
+          );
+        })}
       </div>
     );
   }
